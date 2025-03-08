@@ -40,7 +40,13 @@
     <title>HOME PAGE</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <style>
-
+        .analytics{
+            display:flex;
+            width:1300px;
+            border:1px solid black;
+            text-overflow:ellipsis;
+            overflow:scroll;
+        }
     </style>
 </head>
 <body>
@@ -71,8 +77,31 @@
         </label>
         <button type="submit">Generate</button>
     </form>
+    <div class="analytics">
+        <% if(locals.urls) {%>
+            <table>
+                <thead>
+                    <th>S.no.</th>
+                    <th>ShortId</th>
+                    <th>Redirect</th>
+                    <th>Click</th>
+                </thead>
+                <tbody>
+                    <% urls.forEach((url, index) => {%>
+                        <tr>
+                            <td> <%= index+1 %> </td>
+                            <td> <%= url.shortId  %></td>
+                            <td> <%= url.redirectURL %> </td>
+                            <td> <%= url.visitHistory.length  %> </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } %>
+    </div>
     <div>
         <button onclick="reset()">RESET</button> 
+        <button onclick="analytics()">TOGGLE ALL ANALYTICS</button> 
     </div>
     <script>
 
@@ -86,6 +115,16 @@
             document.querySelectorAll(".urlGenerated").forEach(p=>p.remove());
             document.querySelectorAll(".analyticsGenerated").forEach(t=>t.remove());
             history.pushState({},"","/frontend/home")
+        }
+
+        async function analytics(){
+            if(document.querySelector(".analytics").style.display == "flex"){
+                document.querySelector(".analytics").style.display = "none";
+            }
+            else{
+                document.querySelector(".analytics").style.display = "flex";
+            }
+            
         }
     </script>
 </body>
