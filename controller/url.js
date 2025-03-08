@@ -20,12 +20,16 @@ async function handleGenerateShortURL(req, res){
             redirectURL : req.body.url
         })
         if(foundURL){
-            const encodedData = encodeURIComponent(JSON.stringify(foundURL));
-            const url = `http://localhost:8000/frontend/url/?data=${encodedData}`
-            return res.redirect(url);
+
             // return res.json({
             //     foundURL
             // })
+
+
+            const encodedData = encodeURIComponent(JSON.stringify(foundURL));
+            const url = `http://localhost:${process.env.PORT}/frontend/url/?data=${encodedData}`
+            return res.redirect(url);
+            
         }
         const newEntry = await urlModel.create({
             shortParam : str,
@@ -33,20 +37,21 @@ async function handleGenerateShortURL(req, res){
             redirectURL : req.body.url,
             visitHistory : []
         })
-        const encodedData = encodeURIComponent(JSON.stringify(newEntry));
-        return res.redirect(`http://localhost:8000/frontend/url/?data=${encodedData}`);
 
+        // Sending JSON as response from backend API ------------------ Instead of sending json as response now we render server side templating engines
         // return res.json({
         //     shortId : `unique id for your given url : ${newEntry.shortParam}`,
         //     shortUrl : `shortened url : ${newEntry.shortId}`,
         //     getAnalytics : `go to see noOfVists : http://localhost:${process.env.PORT}/api/urlShortner/analytics/${newEntry.shortParam}`
         // })
+        
 
-        // return res.render("info",{
-        //     shortId : `unique id for your given url : ${newEntry.shortParam}`,
-        //     shortUrl : `shortened url : ${newEntry.shortId}`,
-        //     getAnalytics : `go to see noOfVists : http://localhost:${process.env.PORT}/api/urlShortner/analytics/${newEntry.shortParam}`
-        // })
+        // directing to frontend static router with whole newEntry document -----------------------
+        const encodedData = encodeURIComponent(JSON.stringify(newEntry));
+        return res.redirect(`http://localhost:8000/frontend/url/?data=${encodedData}`);
+
+
+
     
         // console.log(str.length);    
     }
