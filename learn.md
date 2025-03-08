@@ -1,0 +1,1 @@
+1. analytics page need to refresh everytime database updates for visitHistory
