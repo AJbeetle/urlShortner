@@ -7,7 +7,9 @@ async function handleHomePage(req,res){
         urls : getAllUrls
     }) */
 
-    return res.render("home");
+    return res.render("home",{
+        urls : getAllUrls
+    });
 }
 
 async function handleURLgenerated(req, res){
