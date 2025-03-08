@@ -41,7 +41,8 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <style>
         .analytics{
-            display:flex;
+            /* display:flex; */
+            display:none;
             width:1300px;
             border:1px solid black;
             text-overflow:ellipsis;
@@ -101,7 +102,7 @@
     </div>
     <div>
         <button onclick="reset()">RESET</button> 
-        <button onclick="analytics()">TOGGLE ALL ANALYTICS</button> 
+        <button onclick="toggleAnalytics()">TOGGLE ALL ANALYTICS</button> 
     </div>
     <script>
 
@@ -117,12 +118,23 @@
             history.pushState({},"","/frontend/home")
         }
 
-        async function analytics(){
-            if(document.querySelector(".analytics").style.display == "flex"){
-                document.querySelector(".analytics").style.display = "none";
+        function toggleAnalytics(){
+
+            // if(document.querySelector(".analytics").style.display == "flex"){
+            //     document.querySelector(".analytics").style.display = "none";
+            // }
+            // else{
+            //     document.querySelector(".analytics").style.display = "flex";
+            // }
+
+            //better approach is to check getComputedStyle
+            const analyticElement = document.querySelector(".analytics");
+            console.log(window.getComputedStyle(analyticElement).display);
+            if(window.getComputedStyle(analyticElement).display=="flex"){
+                analyticElement.style.display = "none"
             }
             else{
-                document.querySelector(".analytics").style.display = "flex";
+                analyticElement.style.display = "flex"
             }
             
         }
