@@ -45,12 +45,49 @@
 </head>
 <body>
     <h1>URL SHORTNER</h1>
+    <% if(locals.shortURL && locals.analyticsLink) {%>
+        <div class="urlGenerated">
+            <p> URL Generated : <a href=<%= shortURL %>><%= shortURL %></a></p>
+            <p> Analytics for this URL : <a href=<%=analyticsLink %>><%=analyticsLink%></a></p>
+        </div>
+    <%}%>
+
+    <% if(locals.noOfVisits && locals.analytics) {%>
+        <div class="analyticsGenerated">
+            <h2>No. of Users Visited from your short URL : <%=noOfVisits%> </h2>
+
+            <p>Analytics : <ol>
+                                <% analytics.forEach(his => { %>
+                                <li> <%=his.timestamp %></li>
+                                <% }) %>
+                            </ol>
+            </p>
+        </div>
+    <%}%>
+
     <form method="POST" action="/api/urlShortner/url">
         <label for="userURL">
             Enter your URL : <input type="text" id="userURL" name="url" placeholder="http://www.example.com">  <!--here name="url" is what our form sends in body of request that goes to route mentioned in action = "/api/urlShortner/url"-->
         </label>
         <button type="submit">Generate</button>
     </form>
+    <div>
+        <button onclick="reset()">RESET</button> 
+    </div>
+    <script>
+
+        // removes the query parameters from the search bar 
+        window.addEventListener("load",function(){
+            if (window.location.search){
+                history.replaceState({},document.title, window.location.pathname);
+            }
+        })
+        async function reset(){
+            document.querySelectorAll(".urlGenerated").forEach(p=>p.remove());
+            document.querySelectorAll(".analyticsGenerated").forEach(t=>t.remove());
+            history.pushState({},"","/frontend/home")
+        }
+    </script>
 </body>
 </html>
 
