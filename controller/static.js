@@ -13,16 +13,18 @@ async function handleHomePage(req,res){
 async function handleURLgenerated(req, res){
     const encodedData = req.query.data;
     const ob = JSON.parse(decodeURIComponent(encodedData));
-    return res.render("info",{
+    // earlier I was rendering whole new ejs file [info.ejs], now making changes to home.ejs only
+    return res.render("home",{
         shortURL : ob.shortId,
-        getAnalytics : `http://localhost:8000/api/urlShortner/analytics/${ob.shortParam}`
+        analyticsLink : `http://localhost:${process.env.PORT}/api/urlShortner/analytics/${ob.shortParam}`
     });
 }
 
 async function handleAnalytics(req,res){
     const encodedData = req.query.data;
     const ob = JSON.parse(decodeURIComponent(encodedData));
-    return res.render("analytics",{
+    // earlier I was rendering whole new ejs file [analytics.ejs], now making changes to home.ejs only
+    return res.render("home",{
         noOfVisits : ob.noOfVisits,
         analytics : ob.analytics
     })
