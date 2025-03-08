@@ -3,4 +3,5 @@ Information
 
 
 ToDo
-1. analytics page need to refresh everytime database updates for visitHistory
+1. HOME page need to refresh everytime database updates for visitHistory, so number of clicks get updated automatically without need of manual refresh 
+2. create a table to show which URL is having how many clicks : DONE
