@@ -20,9 +20,12 @@ async function handleGenerateShortURL(req, res){
             redirectURL : req.body.url
         })
         if(foundURL){
-            return res.json({
-                foundURL
-            })
+            const encodedData = encodeURIComponent(JSON.stringify(foundURL));
+            const url = `http://localhost:8000/frontend/url/?data=${encodedData}`
+            return res.redirect(url);
+            // return res.json({
+            //     foundURL
+            // })
         }
         const newEntry = await urlModel.create({
             shortParam : str,
@@ -30,17 +33,26 @@ async function handleGenerateShortURL(req, res){
             redirectURL : req.body.url,
             visitHistory : []
         })
-        return res.json({
-            shortId : `unique id for your given url : ${newEntry.shortParam}`,
-            shortUrl : `shortened url : ${newEntry.shortId}`,
-            getAnalytics : `go to see noOfVists : http://localhost:${process.env.PORT}/api/urlShortner/analytics/${newEntry.shortParam}`
-        })
+        const encodedData = encodeURIComponent(JSON.stringify(newEntry));
+        return res.redirect(`http://localhost:8000/frontend/url/?data=${encodedData}`);
+
+        // return res.json({
+        //     shortId : `unique id for your given url : ${newEntry.shortParam}`,
+        //     shortUrl : `shortened url : ${newEntry.shortId}`,
+        //     getAnalytics : `go to see noOfVists : http://localhost:${process.env.PORT}/api/urlShortner/analytics/${newEntry.shortParam}`
+        // })
+
+        // return res.render("info",{
+        //     shortId : `unique id for your given url : ${newEntry.shortParam}`,
+        //     shortUrl : `shortened url : ${newEntry.shortId}`,
+        //     getAnalytics : `go to see noOfVists : http://localhost:${process.env.PORT}/api/urlShortner/analytics/${newEntry.shortParam}`
+        // })
     
         // console.log(str.length);    
     }
     catch(e){
         res.status(500).json({
-            err : `error : ${e.message}`
+            err : `error for nowww : ${e.message}`
         })
     }
 }
@@ -85,10 +97,18 @@ async function handleGetAnalytics(req, res){
         const found = await urlModel.findOne({
             shortParam : shortId
         })
-        res.json({
-            noOfVists : (found.visitHistory).length,
+
+        const encodedData = encodeURIComponent(JSON.stringify({
+            noOfVisits : (found.visitHistory).length,
             analytics : found.visitHistory
-        })
+        }));
+
+        return res.redirect(`http://localhost:8000/frontend/analytics/?data=${encodedData}`);
+
+        // res.json({
+        //     noOfVists : (found.visitHistory).length,
+        //     analytics : found.visitHistory
+        // })
     }
     catch(e){
         res.status(500).json({
