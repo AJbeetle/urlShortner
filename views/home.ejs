@@ -1,0 +1,58 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME PAGE</title>
+</head>
+<body>
+    <h1>Hey from server</h1>
+     <ol>
+
+     </ol>
+
+    <script>
+        let allUrl;
+        async function getAllURL(){
+            const response = await fetch("http://localhost:8000/getAllUrls")
+
+            allUrl = await response.json();
+        }
+
+        getAllURL().then(()=>{
+
+            allUrl.forEach(url => {
+                const li = document.createElement("li");
+                li.innerHTML = `${url.shortParam} - ${url.redirectURL} - ${url.visitHistory.length}`
+                document.querySelector("ol").appendChild(li);
+            })
+        });
+    </script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME PAGE</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <style>
+
+    </style>
+</head>
+<body>
+    <h1>URL SHORTNER</h1>
+    <form method="POST" action="/api/urlShortner/url">
+        <label for="userURL">
+            Enter your URL : <input type="text" id="userURL" name="url" placeholder="http://www.example.com">  <!--here name="url" is what our form sends in body of request that goes to route mentioned in action = "/api/urlShortner/url"-->
+        </label>
+        <button type="submit">Generate</button>
+    </form>
+</body>
+</html>
+
+
+
