@@ -1,0 +1,512 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME PAGE</title>
+</head>
+<body>
+    <h1>Hey from server</h1>
+     <ol>
+
+     </ol>
+
+    <script>
+        let allUrl;
+        async function getAllURL(){
+            const response = await fetch("http://localhost:8000/getAllUrls")
+
+            allUrl = await response.json();
+        }
+
+        getAllURL().then(()=>{
+
+            allUrl.forEach(url => {
+                const li = document.createElement("li");
+                li.innerHTML = `${url.shortParam} - ${url.redirectURL} - ${url.visitHistory.length}`
+                document.querySelector("ol").appendChild(li);
+            })
+        });
+    </script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME PAGE</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tomorrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Turret+Road:wght@200;300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+
+        *{
+            margin:0px;
+            padding:0px;
+            font-family: 'Turret Road';
+
+        }
+        
+
+        body{
+            color:rgb(255, 130, 130);
+            /* background-color: rgb(255, 244, 230); */
+            width:100%;
+            height:100vh;
+            /* border: 3px solid aqua; */
+            /* text-align: center; */
+        }
+        .container{
+            border:4px solid blue;
+            position:relative;
+            /* top:-1vh; */
+            /* left:0; */
+            width:100vw;
+            /* height:100vh; */
+            min-height: 100%;
+            display:flex;  
+            align-items: center; 
+            
+        }
+
+        .bg{
+            position:fixed;
+            right:-30vw;
+            /* border:3px solid blue; */
+            /* z-index:-1; */
+            opacity: 16%;
+            img{
+                width:850px;
+            }
+        }
+
+
+        .alignedContent{
+            position: relative;
+            display:flex;
+            /* border:4px solid red; */
+            width : 100vw;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navBar{
+            /* border:1px solid red; */
+            position:absolute;
+            z-index:1;
+            top:6%;
+            width: 60%;
+            padding:15px 40px 15px 15px;
+            background-color: #ff8280;
+            color:white;
+            border-top-right-radius: 40px;
+            border-bottom-right-radius: 40px;
+            font-weight: 800;
+            font-size:3vh;
+            display:flex;
+            align-items: center;
+            
+            ul{
+                width:100%;
+                list-style: none;
+                display: inline-flex;
+                /* justify-content: flex-start; */
+                justify-content: space-around;
+                /* gap:60px; */
+                /* border:1px solid red; */
+            }
+
+            ul :hover{
+                cursor:pointer;
+                text-decoration: underline;
+                
+            }
+            ul :active{
+                transform : scale(0.9);
+            }
+        }
+
+        .toggleNav{
+            position : absolute;
+            right:0;
+            padding-right:15px;
+            display:flex;
+            align-items: center;
+            /* border: 1px solid red; */
+            img{
+                /* border:1px   solid blue; */
+            }
+
+            :hover{
+                cursor: pointer;
+            }
+
+            :active{
+                transform : scale(0.7   ); 
+            }
+        }
+
+
+        .main{
+            position:relative;
+            /* left:-9vw; */
+            width:50%;
+            height :60vh;
+            /* padding : 30px 0px 30px 50px; */
+            display : flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 192, 203, 0.895);
+            /* border : 1px solid red; */
+            /* border-radius : 5px; */
+            gap:20px;
+            width : 950px;
+            font-weight: 800;
+        }
+
+        .analytics{
+            /* display:flex; */
+            position:absolute;
+            display:none;
+            right:0;
+            width:30%;
+            height:auto;
+            border:4px solid #ffc6d0;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            margin:10px 0px;
+            background-color: #fffbf7;
+            transition : top 0.5s ease-in-out
+        }
+
+        .tableContainer{
+            text-overflow:ellipsis;
+            margin:30px;
+            overflow: hidden;
+            overflow-y: scroll;
+            width:fit-content;
+            display:flex;
+            flex-direction: column;
+            padding:30px;
+            /* border:1px solid blue; */
+
+        }
+
+        .tableContent{
+            padding : 10px;
+            display:inline-block;
+            /* border:1px solid blue; */
+            width:100%;
+            z-index:1;
+            table{
+                border:2px solid #ff8280;
+                border-radius: 10px;
+                width : 100%;
+                border-collapse:collapse;
+                background-color: #ffe7eb;
+            }
+
+            td{
+                padding:10px;
+                border: 1px solid #ff6b81;
+            }
+            th{
+                border: 1px solid #ffdadf;
+                padding:10px;
+                background-color: #ff7f8c;
+                color:white;
+                font-weight: bold;
+            }
+
+            td:nth-child(3), th:nth-child(3){
+                max-width:900px;
+                /* word-wrap:break-word;   */
+                white-space: nowrap;
+                overflow-x: auto;
+                /* display:block; */
+
+            }
+
+            caption{
+            /* border:1px solid blue; */
+            text-align: center;
+            font-weight: 900;
+            }
+
+        }
+
+        /* Scrollbar width */
+        ::-webkit-scrollbar {
+            width: 3px;  /* Adjust the thickness */
+            height: 3px; /* For horizontal scrollbar */
+        }
+
+        /* Scrollbar track */
+        ::-webkit-scrollbar-track {
+            background: #ffe6e6; /* Light pink to match your theme */
+            border-radius: 10px;
+        }
+
+        /* Scrollbar thumb (the draggable part) */
+        ::-webkit-scrollbar-thumb {
+            background: #ff5e78; /* A darker pink */
+            border-radius: 10px;
+        }
+
+        /* On hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff3b57; /* Even darker pink on hover */
+        }
+
+        .button{
+            position:absolute;
+            display:flex;
+            align-items: center;
+            /* border:5px solid aqua; */
+            height:100%;
+            left:0;
+            transform:translateX(-50%);
+            z-index: 1;
+            img{
+                width:50px;
+                box-shadow: 2px 5px 5px rgb(210, 163, 163);
+                border-radius: 100%;
+            }
+            :hover{
+                cursor: pointer;
+            }
+            :active{
+                transform : scale(0.95);
+                /* transform :rotateY(180deg); */
+            }
+        }
+        
+
+        h1{
+            font-size:13vh;
+            text-shadow: 2px 5px 5px rgb(69, 52, 52);
+            animation : glitch 1.0s infinite alternate;
+            color:rgb(255, 130, 130);
+
+        }
+
+        @keyframes glitch {
+            0% { text-shadow: 2px 2px rgb(255, 129, 115), -2px -2px rgb(95, 22, 22); }
+            25% { text-shadow: -2px 2px rgb(255, 0, 0), 2px -2px rgb(255, 114, 114); }
+            50% { text-shadow: 2px -2px rgb(255, 105, 105), -2px 2px rgb(255, 0, 0); }
+            75% { text-shadow: -2px -2px rgb(255, 0, 0), 2px 2px rgb(255, 125, 125); }
+            100% { text-shadow: 2px 2px rgb(255, 119, 119), -2px -2px rgb(255, 0, 0); }
+        }
+
+        form{
+            font-weight: 900;
+        }
+
+        input{
+            padding:10px;
+            border: 1px solid red;
+            width:40vw;
+            color:black;
+        }
+
+        button{
+            padding:10px;
+            font-weight: 900;
+            background-color:rgb(255, 129, 115) ;
+            border :none;   
+            border-radius : 5px;
+            box-shadow: 2px 5px 5px rgb(202, 159, 159);
+            color:whitesmoke;
+        }
+        button:hover{
+            cursor: pointer;
+        }
+        button:active{
+            transform : scale(0.95);
+            /* box-shadow: 1px 2px 2px rgb(157, 111, 111); */
+        }
+
+        .urlGenerated, .analyticsGenerated{
+            padding : 10px;
+            display:flex;
+            flex-direction: column;
+            gap:10px;
+            background-color: rgb(255, 136, 125);
+            border: 1px solid red;
+            border-radius : 10px;
+            color : white;
+            text-decoration: aliceblue;
+        }
+
+        
+
+
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <div class="navBar">
+            <div class="toggleNav"><img src="./images/arrow.svg" width="30px"></div>
+            <ul>
+                <li>About</li>
+                <li>Connect</li>
+                <li>API</li>
+                <li>Home</li>
+            </ul>
+        </div>
+        <div class="alignedContent">
+            <div class="main">
+                <div>
+                    <h1>URL-SHORTNER</h1>
+                </div>
+            
+                
+                <div>
+                    <form method="POST" action="/api/urlShortner/url">
+                        <label for="userURL">
+                            <input type="text" id="userURL" name="url" placeholder="http://www.example.com">  <!--here name="url" is what our form sends in body of request that goes to route mentioned in action = "/api/urlShortner/url"-->
+                        </label>
+                        <button type="submit">Generate</button>
+                    </form>
+                </div>
+                <% if(locals.shortURL && locals.analyticsLink) {%>
+                    <div class="urlGenerated">
+                        <p> URL Generated : <a href=<%= shortURL %>><%= shortURL %></a></p>
+                        <p> Analytics for this URL : <a href=<%=analyticsLink %>><%=analyticsLink%></a></p>
+                    </div>
+                <%}%>
+            
+                <% if(locals.noOfVisits && locals.analytics) {%>
+                    <div class="analyticsGenerated">
+                        <h2>No. of Users Visited from your short URL : <%=noOfVisits%> </h2>
+            
+                        <p>Analytics : <ol>
+                                            <% analytics.forEach(his => { %>
+                                            <li> <%=his.timestamp %></li>
+                                            <% }) %>
+                                        </ol>
+                        </p>
+                    </div>
+                <%}%>
+    
+                <div>
+                    <button onclick="reset()">Reset</button> 
+                    <button onclick="toggleAnalytics()">Toggle Analytics</button> 
+                </div>
+            </div>
+            <div class="analytics">
+                <div class="button">
+                    <img src="./images/arrow-button-left.svg" alt="left">
+                </div>
+                <div class="tableContainer">
+                    <% if(locals.urls) {%>
+                        <div class="tableContent">
+                            <table>
+                                <caption>
+                                    <h2>
+                                        URL Analytics
+                                    </h2>
+                                </caption>
+                                <thead>
+                                    <th>S.no.</th>
+                                    <th>ShortId</th>
+                                    <th>Redirect</th>
+                                    <th>Click</th>
+                                </thead>
+                                <tbody>
+                                    <% urls.forEach((url, index) => {%>
+                                        <tr>
+                                            <td> <%= index+1 %> </td>
+                                            <td> <%= url.shortId  %></td>
+                                            <td> <%= url.redirectURL %> </td>
+                                            <td> <%= url.visitHistory.length  %> </td>
+                                        </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+            
+        </div>
+        <div class="bg">
+            <img src="./images/globe_3.svg">
+        </div>
+    </div>
+    <script>
+
+        // removes the query parameters from the search bar 
+        window.addEventListener("load",function(){
+            if (window.location.search){
+                history.replaceState({},document.title, window.location.pathname);
+            }
+        })
+        async function reset(){
+            let analyticElement = document.querySelector(".analytics"); 
+            if(window.getComputedStyle(analyticElement).display=="flex"){
+                analyticElement.style.display = "none";
+            }
+            document.querySelectorAll(".urlGenerated").forEach(p=>p.remove());
+            document.querySelectorAll(".analyticsGenerated").forEach(t=>t.remove());
+            history.pushState({},"","/frontend/home")
+        }
+
+        async function toggleAnalytics(){
+
+            // if(document.querySelector(".analytics").style.display == "flex"){
+            //     document.querySelector(".analytics").style.display = "none";
+            // }
+            // else{
+            //     document.querySelector(".analytics").style.display = "flex";
+            // }
+
+            //better approach is to check getComputedStyle
+            const analyticElement = document.querySelector(".analytics");
+            console.log(window.getComputedStyle(analyticElement).display);
+            if(window.getComputedStyle(analyticElement).display=="flex"){
+                analyticElement.style.display = "none"
+            }
+            else{
+                await fetch("http://localhost:8000/frontend/home");
+                analyticElement.style.display = "flex"
+            }   
+        }
+
+        document.querySelector(".button").addEventListener("click",function(){
+            let button = document.querySelector(".button");
+            let image = button.querySelector("img").getAttribute("alt");
+
+            if(image == "left"){
+                document.querySelector(".main").style.position = "fixed";
+                let analytics = document.querySelector(".analytics");
+                analytics.style.width = "95%";
+                // button.style.transform = "rotatey(180deg)";
+                button.querySelector("img").setAttribute("src", "./images/arrow-button-right.svg");
+                button.querySelector("img").setAttribute("alt", "right");
+                document.querySelector(".navBar").style.zIndex=-1;
+                document.querySelector(".navBar").style.position="fixed";
+
+            }else{
+                document.querySelector(".main").style.position = "relative";
+                let analytics = document.querySelector(".analytics");
+                analytics.style.width = "30%";
+                // button.style.transform = "rotatey(180deg)";
+                button.querySelector("img").setAttribute("src", "./images/arrow-button-left.svg");
+                button.querySelector("img").setAttribute("alt", "left");
+                document.querySelector(".navBar").style.zIndex=1;
+                document.querySelector(".navBar").style.position="absolute";
+            }
+        }) 
+    </script>
+</body>
+</html>
+
+
+
