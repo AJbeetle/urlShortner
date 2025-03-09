@@ -383,6 +383,10 @@
             }
         })
         async function reset(){
+            let analyticElement = document.querySelector(".analytics"); 
+            if(window.getComputedStyle(analyticElement).display=="flex"){
+                analyticElement.style.display = "none";
+            }
             document.querySelectorAll(".urlGenerated").forEach(p=>p.remove());
             document.querySelectorAll(".analyticsGenerated").forEach(t=>t.remove());
             history.pushState({},"","/frontend/home")
