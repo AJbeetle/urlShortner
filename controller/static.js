@@ -51,7 +51,8 @@ async function handleAnalytics(req,res){
         return res.render("home",{
             urls : getAllUrls,
             noOfVisits : ob.noOfVisits,
-            analytics : ob.analytics
+            analytics : ob.analytics,
+            shortURL : ob.shortId
         })
     }
     catch(e){

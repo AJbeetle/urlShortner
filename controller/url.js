@@ -105,7 +105,8 @@ async function handleGetAnalytics(req, res){
 
         const encodedData = encodeURIComponent(JSON.stringify({
             noOfVisits : (found.visitHistory).length,
-            analytics : found.visitHistory
+            analytics : found.visitHistory,
+            shortId : found.shortId
         }));
 
         return res.redirect(`http://localhost:8000/frontend/analytics/?data=${encodedData}`);
