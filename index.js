@@ -23,6 +23,10 @@ app.set("views",path.join(__dirname,"views"));
 
 app.use(express.json());
 app.use(express.static("public"));
+app.use('/frontend/images', express.static('public/images'));
+app.use('/frontend/url/images', express.static('public/images'));
+app.use('/frontend/analytics/images', express.static('public/images'));
+
 //middleware used to parse form data
 app.use(express.urlencoded({extended : true}))
 
