@@ -27,13 +27,13 @@ async function handleGenerateShortURL(req, res){
 
 
             const encodedData = encodeURIComponent(JSON.stringify(foundURL));
-            const url = `http://localhost:${process.env.PORT}/frontend/url/?data=${encodedData}`
+            const url = `${process.env.BASE_URL}/frontend/url/?data=${encodedData}`
             return res.redirect(url);
             
         }
         const newEntry = await urlModel.create({
             shortParam : str,
-            shortId : `http://localhost:${process.env.PORT}/${str}`,
+            shortId : `${process.env.BASE_URL}/${str}`,
             redirectURL : req.body.url,
             visitHistory : []
         })
@@ -48,7 +48,7 @@ async function handleGenerateShortURL(req, res){
 
         // directing to frontend static router with whole newEntry document -----------------------
         const encodedData = encodeURIComponent(JSON.stringify(newEntry));
-        return res.redirect(`http://localhost:8000/frontend/url/?data=${encodedData}`);
+        return res.redirect(`${process.env.BASE_URL}/frontend/url/?data=${encodedData}`);
 
 
 
@@ -109,7 +109,7 @@ async function handleGetAnalytics(req, res){
             shortId : found.shortId
         }));
 
-        return res.redirect(`http://localhost:8000/frontend/analytics/?data=${encodedData}`);
+        return res.redirect(`${process.env.BASE_URL}/frontend/analytics/?data=${encodedData}`);
 
         // res.json({
         //     noOfVists : (found.visitHistory).length,
