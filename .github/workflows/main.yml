@@ -1,31 +1,23 @@
-name: Deploy to Railway
+name: Dummy Deployment
 
 on:
   push:
-    branches: [master]  # or your deploy branch
+    branches:
+      - master
 
 jobs:
-  deploy:
+  dummy-deploy:
     runs-on: ubuntu-latest
-
     environment:
       name: production
-      url: https://testurlshortner.up.railway.app/
+      url: https://testurlshortner.up.railway.app
 
     steps:
-      - name: Checkout repo
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+      - name: Simulate deployment
+        run: echo "Pretending to deploy to production..."
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build
-        run: npm run build
-
-      - name: Deploy to Railway (via CLI or API)
-        run: echo "Add your deployment command here"
+      - name: Display deployed URL
+        run: echo "App is live at https://testurlshortner.up.railway.app"
