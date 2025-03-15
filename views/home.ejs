@@ -414,7 +414,7 @@
     
                 <div>
                     <button onclick="reset()">Reset</button> 
-                    <button onclick="toggleAnalytics()">Toggle Analytics</button> 
+                    <button onclick="toggleAnalytics(`<%=BASE_URL%>`)">Toggle Analytics</button> 
                 </div>
             </div>
             <div class="analytics">
@@ -484,7 +484,7 @@
             history.pushState({},"","/frontend/home")
         }
 
-        async function toggleAnalytics(){
+        async function toggleAnalytics(BASE_URL){
 
             // if(document.querySelector(".analytics").style.display == "flex"){
             //     document.querySelector(".analytics").style.display = "none";
@@ -500,7 +500,7 @@
                 analyticElement.style.display = "none"
             }
             else{
-                await fetch("http://localhost:8000/frontend/home");
+                await fetch(`${BASE_URL}/frontend/home`);
                 analyticElement.style.display = "flex"
             }   
         }
