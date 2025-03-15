@@ -1,4 +1,7 @@
 const {urlModel} = require("../model/url");
+require("dotenv").config({
+    path : "../.env"
+})
 
 async function handleHomePage(req,res){
     try{
@@ -9,7 +12,8 @@ async function handleHomePage(req,res){
         }) */
     
         return res.render("home",{
-            urls : getAllUrls
+            urls : getAllUrls,
+            BASE_URL : process.env.BASE_URL
         });
     }
     catch(e){
@@ -30,7 +34,8 @@ async function handleURLgenerated(req, res){
         return res.render("home",{
             urls : getAllUrls,
             shortURL : ob.shortId,
-            analyticsLink : `http://localhost:${process.env.PORT}/api/urlShortner/analytics/${ob.shortParam}`
+            analyticsLink : `${process.env.BASE_URL}/api/urlShortner/analytics/${ob.shortParam}`,
+            BASE_URL : process.env.BASE_URL
         });
 
     }
@@ -52,7 +57,8 @@ async function handleAnalytics(req,res){
             urls : getAllUrls,
             noOfVisits : ob.noOfVisits,
             analytics : ob.analytics,
-            shortURL : ob.shortId
+            shortURL : ob.shortId,
+            BASE_URL : process.env.BASE_URL
         })
     }
     catch(e){
