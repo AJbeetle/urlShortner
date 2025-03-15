@@ -9,7 +9,7 @@ jobs:
   dummy-deploy:
     runs-on: ubuntu-latest
     environment:
-      name: Production
+      name: production
       url: https://testurlshortner.up.railway.app
 
     steps:
