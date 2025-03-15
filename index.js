@@ -5,7 +5,7 @@ const { staticRouter } = require("./routes/staticRouter");
 const {urlModel} = require("./model/url");
 require("dotenv").config();
 const path = require("path");
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8000;
 
 // const user = process.env.user;
 // const password = process.env.password;
