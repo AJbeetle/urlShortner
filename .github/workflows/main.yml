@@ -1,3 +1,31 @@
-environment:
-  name: production
-  url: https://testurlshortner.up.railway.app/
+name: Deploy to Railway
+
+on:
+  push:
+    branches: [master]  # or your deploy branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: production
+      url: https://testurlshortner.up.railway.app/
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Railway (via CLI or API)
+        run: echo "Add your deployment command here"
