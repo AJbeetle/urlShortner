@@ -35,7 +35,7 @@ app.use(express.urlencoded({extended : true}))
 // })
 app.get("/api/shortURL/",function(req,res){
     res.json({
-        message : "go to different endpoint of this api : http://localhost:8000/api/urlShortner and this is post request containing body with the actual url "
+        message : `go to different endpoint of this api : ${process.env.BASE_URL}/api/urlShortner and this is post request containing body with the actual url `
     })
 })
 
@@ -86,6 +86,11 @@ app.get("/api/shortURL/",function(req,res){
 
 }) */
 
+
+// redirecting to my frontend endpoint : Server Side Rendering Handles    
+app.get("/",function(req,res){
+    res.redirect(`${process.env.BASE_URL}/frontend/home`)
+})
     
 app.get("/:id",async function(req, res){
     try{
